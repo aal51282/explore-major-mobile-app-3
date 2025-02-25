@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Project3</string>
+
+    <string-array name="majors_array">
+        <item>Computer Science</item>
+        <item>Genetics</item>
+        <item>Economy</item>
+        <item>Chemistry</item>
+        <item>Mathematics</item>
+        <item>Physics</item>
+    </string-array>
+
+</resources>

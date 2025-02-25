@@ -1,0 +1,24 @@
+Economy
+---------------------------------------
+Career Opportunities:
+Economics graduates can work in finance, international trade, government policy, and business consulting. Common roles include:
+
+Financial Analyst – Evaluates investment opportunities and market trends.
+Economic Consultant – Advises businesses and governments on financial strategies.
+Policy Advisor – Develops economic policies and regulations.
+Market Research Analyst – Studies consumer behavior and business trends.
+Actuary – Uses statistical models to assess financial risks.
+Advancement Prospects:
+Experienced economists can become chief financial officers (CFOs), directors of economic policy, investment strategists, or research economists. Advanced degrees (M.A. or Ph.D.) are often pursued for research or academic positions.
+
+Key Skills Required:
+Knowledge of macroeconomics and microeconomics
+Proficiency in financial modeling and data analysis
+Understanding of global trade and market structures
+Statistical and econometric analysis using R or Python
+Emerging Trends:
+Cryptocurrency and Digital Finance – Impacting traditional economic models.
+Behavioral Economics – Understanding consumer psychology.
+Global Supply Chain Optimization – Improving efficiency in trade and commerce.
+Typical Work Environment:
+Economists work in offices, financial institutions, consulting firms, and government agencies, analyzing data, forecasting trends, and advising policymakers.
