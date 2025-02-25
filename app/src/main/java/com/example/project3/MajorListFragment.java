@@ -5,17 +5,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.ListFragment;
 
+/**
+ * MajorListFragment is a fragment that displays a list of majors.
+ */
 public class MajorListFragment extends ListFragment {
 
+    // Callback interface to communicate with the hosting activity.
     OnMajorSelectedListener mCallback;
 
-    // Container Activity must implement this interface.
+    /**
+     * Interface for communication with the hosting activity.
+     */
     public interface OnMajorSelectedListener {
         void onMajorSelected(String major);
     } // OnMajorSelectedListener interface
 
+    /**
+     * Called when the fragment is attached to the activity.
+     * @param context The activity context.
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -27,9 +40,14 @@ public class MajorListFragment extends ListFragment {
         } // try-catch
     } // onAttach
 
+    /**
+     * Called immediately after onCreateView() has returned, but before any saved state has been restored.
+     * @param view The View returned by onCreateView().
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state.
+     */
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         // Set up the list using the majors array resource.
         String[] majors = getResources().getStringArray(R.array.majors_array);
         setListAdapter(new ArrayAdapter<>(getActivity(),
@@ -40,10 +58,17 @@ public class MajorListFragment extends ListFragment {
             int selectedPosition = savedInstanceState.getInt("selected_position", ListView.INVALID_POSITION);
             if (selectedPosition != ListView.INVALID_POSITION) {
                 getListView().setItemChecked(selectedPosition, true);
-            } // if
-        } // if
-    } // onActivityCreated
+            }
+        }
+    } // onViewCreated
 
+    /**
+     * Called when a list item is clicked.
+     * @param l The ListView where the click happened
+     * @param v The view that was clicked within the ListView
+     * @param position The position of the view in the list
+     * @param id The row id of the item that was clicked
+     */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         String major = (String) getListAdapter().getItem(position);
@@ -51,6 +76,10 @@ public class MajorListFragment extends ListFragment {
         l.setItemChecked(position, true);
     } // onListItemClick
 
+    /**
+     * Called when the fragment is no longer attached to the activity.
+     * @param outState Bundle in which to place your saved state.
+     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

@@ -21,7 +21,7 @@ public class MasterDetailActivity extends AppCompatActivity implements MajorList
         // If the detail container exists, we’re in landscape mode
         if (findViewById(R.id.detail_container) != null) {
             twoPane = true;
-        }
+        } // if
 
         // Load the MajorListFragment into the proper container.
         if (savedInstanceState == null) {
@@ -40,9 +40,13 @@ public class MasterDetailActivity extends AppCompatActivity implements MajorList
 
     } // onCreate
 
-    // This callback is triggered when a major is selected in the list fragment.
+    /**
+     * This method is called when a major is selected in the MajorListFragment.
+     * @param major The selected major string.
+     */
     @Override
     public void onMajorSelected(String major) {
+        // Load the DetailFragment into the proper container.
         DetailFragment detailFragment = DetailFragment.newInstance(major);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -54,6 +58,8 @@ public class MasterDetailActivity extends AppCompatActivity implements MajorList
             transaction.replace(R.id.fragment_container, detailFragment)
                     .addToBackStack(null);
         } // if
+
+        // Commit the fragment transaction
         transaction.commit();
     } // onMajorSelected
 
