@@ -1,4 +1,4 @@
-Computer Science
+Computer Science is the study of computation, automation, and information processing. It involves designing algorithms, developing software, and understanding the theoretical foundations of computing. Key areas include artificial intelligence, cybersecurity, databases, and networking. Computer scientists work in various industries, from tech companies to research institutions, contributing to advancements in machine learning, cloud computing, and software engineering.
 ---------------------------------------
 Career Opportunities:
 A degree in Computer Science opens up a wide range of career paths, including software engineering, data science, artificial intelligence research, cloud computing, cybersecurity, and game development. Professionals can work in industries such as technology, finance, healthcare, education, and government agencies.
