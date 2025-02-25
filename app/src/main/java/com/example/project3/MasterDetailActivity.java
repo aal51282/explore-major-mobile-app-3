@@ -4,17 +4,21 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+/**
+ * MasterDetailActivity is the main activity that hosts the MajorListFragment and DetailFragment.
+ */
 public class MasterDetailActivity extends AppCompatActivity implements MajorListFragment.OnMajorSelectedListener {
 
-    // Determines if we’re running in two-pane mode.
+    // Flag to determine if we’re running in landscape orientation
     private boolean twoPane = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set the layout based on orientation (portrait or landscape)
         setContentView(R.layout.activity_master_detail);
 
-        // If the detail container exists, we’re in landscape (two-pane) mode.
+        // If the detail container exists, we’re in landscape mode
         if (findViewById(R.id.detail_container) != null) {
             twoPane = true;
         }
