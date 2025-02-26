@@ -15,6 +15,7 @@
 
         <activity
             android:name=".MasterDetailActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false"/>
 
         <activity
