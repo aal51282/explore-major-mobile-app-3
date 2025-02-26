@@ -2,7 +2,6 @@ package com.example.project3;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 /**
@@ -14,6 +13,10 @@ public class MasterDetailActivity extends AppCompatActivity implements MajorList
     private String selectedMajor = null;
     private static final String STATE_SELECTED_MAJOR = "selected_major";
 
+    /**
+     * Called when the activity is first created.
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +34,12 @@ public class MasterDetailActivity extends AppCompatActivity implements MajorList
 
             // Handle fragment restoration after configuration change
             handleFragmentRestoration();
-        }
-    }
+        } // if
+    } // onCreate
 
+    /**
+     * Sets up the initial fragments for the activity.
+     */
     private void setupInitialFragments() {
         if (twoPane) {
             // In landscape, add MajorListFragment to list_container
@@ -45,9 +51,12 @@ public class MasterDetailActivity extends AppCompatActivity implements MajorList
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new MajorListFragment())
                     .commit();
-        }
-    }
+        } // if
+    } // setupInitialFragments
 
+    /**
+     * Handles fragment restoration after configuration change.
+     */
     private void handleFragmentRestoration() {
         // We need to handle fragment restoration manually
         getSupportFragmentManager().executePendingTransactions();
@@ -65,20 +74,16 @@ public class MasterDetailActivity extends AppCompatActivity implements MajorList
                         .add(R.id.list_container, new MajorListFragment())
                         .commit();
                 getSupportFragmentManager().executePendingTransactions();
-            }
+            } // if
 
             // Add the detail fragment if we have a selected major
             if (selectedMajor != null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.detail_container, DetailFragment.newInstance(selectedMajor))
                         .commit();
-            }
-        } else {
-            // We're in portrait mode now
-            // Any necessary adjustments to fragments in portrait mode would go here
-            // Usually no special handling needed for portrait restoration
-        }
-    }
+            } // if
+        } // if
+    } // handleFragmentRestoration
 
     /**
      * Callback when a major is selected.
@@ -101,12 +106,21 @@ public class MasterDetailActivity extends AppCompatActivity implements MajorList
         transaction.commit();
     } // onMajorSelected
 
+    /**
+     * Called when the activity may be temporarily destroyed, save the instance state here.
+     * @param outState Bundle in which to place your saved state.
+     *
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(STATE_SELECTED_MAJOR, selectedMajor);
     } // onSaveInstanceState
 
+    /**
+     * Called when the configuration of the activity has changed.
+     * @param newConfig The new device configuration.
+     */
     @Override
     public void onConfigurationChanged(android.content.res.Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -131,17 +145,17 @@ public class MasterDetailActivity extends AppCompatActivity implements MajorList
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.detail_container, DetailFragment.newInstance(currentMajor))
                         .commit();
-            }
+            } // if
         } else if (!newTwoPane && twoPane) {
             // Landscape to portrait transition
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new MajorListFragment())
                     .commit();
-        }
+        } // if
 
         // Update the twoPane state
         twoPane = newTwoPane;
         selectedMajor = currentMajor;
-    }
+    } // onConfigurationChanged
 
 } // MasterDetailActivity
