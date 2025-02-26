@@ -2,6 +2,7 @@ package com.example.project3;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 /**
@@ -9,58 +10,75 @@ import androidx.fragment.app.FragmentTransaction;
  */
 public class MasterDetailActivity extends AppCompatActivity implements MajorListFragment.OnMajorSelectedListener {
 
-    // Flag to determine if we’re running in landscape orientation
     private boolean twoPane = false;
+    private String selectedMajor = null;
+    private static final String STATE_SELECTED_MAJOR = "selected_major";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Set the layout based on orientation (portrait or landscape)
         setContentView(R.layout.activity_master_detail);
 
-        // If the detail container exists, we’re in landscape mode
-        if (findViewById(R.id.detail_container) != null) {
-            twoPane = true;
+        // Determine if we're in two-pane (landscape) mode by checking for the detail_container.
+        twoPane = (findViewById(R.id.detail_container) != null);
+
+        // Restore the selected major if available.
+        if (savedInstanceState != null) {
+            selectedMajor = savedInstanceState.getString(STATE_SELECTED_MAJOR);
+            // Remove any fragment that was automatically restored in the portrait container.
+            Fragment restoredFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (restoredFragment != null) {
+                getSupportFragmentManager().beginTransaction().remove(restoredFragment).commit();
+            } // if
         } // if
 
-        // Load the MajorListFragment into the proper container.
-        if (savedInstanceState == null) {
-            if (twoPane) {
-                // In landscape, load list fragment into list_container.
+        if (twoPane) {
+            // In landscape, add the MajorListFragment into list_container if not already added.
+            if (getSupportFragmentManager().findFragmentById(R.id.list_container) == null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.list_container, new MajorListFragment())
                         .commit();
-            } else {
-                // In portrait, load list fragment into single container.
+            } // if
+            // If a major was selected before rotation, display its detail.
+            if (selectedMajor != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.detail_container, DetailFragment.newInstance(selectedMajor))
+                        .commit();
+            } // if
+        } else {
+            // In portrait, add MajorListFragment into fragment_container if it's not already there.
+            if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) == null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new MajorListFragment())
                         .commit();
             } // if
         } // if
-
     } // onCreate
 
     /**
-     * This method is called when a major is selected in the MajorListFragment.
-     * @param major The selected major string.
+     * Callback when a major is selected.
+     * @param major The selected major.
      */
     @Override
     public void onMajorSelected(String major) {
-        // Load the DetailFragment into the proper container.
+        selectedMajor = major;
         DetailFragment detailFragment = DetailFragment.newInstance(major);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (twoPane) {
-            // In landscape, show detail fragment in the detail container.
+            // In landscape, display the detail fragment in detail_container.
             transaction.replace(R.id.detail_container, detailFragment);
         } else {
             // In portrait, replace the entire container and add the transaction to the back stack.
             transaction.replace(R.id.fragment_container, detailFragment)
                     .addToBackStack(null);
         } // if
-
-        // Commit the fragment transaction
         transaction.commit();
     } // onMajorSelected
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(STATE_SELECTED_MAJOR, selectedMajor);
+    } // onSaveInstanceState
 } // MasterDetailActivity

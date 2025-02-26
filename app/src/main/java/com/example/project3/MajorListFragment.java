@@ -58,8 +58,8 @@ public class MajorListFragment extends ListFragment {
             int selectedPosition = savedInstanceState.getInt("selected_position", ListView.INVALID_POSITION);
             if (selectedPosition != ListView.INVALID_POSITION) {
                 getListView().setItemChecked(selectedPosition, true);
-            }
-        }
+            } // if
+        } // if
     } // onViewCreated
 
     /**
